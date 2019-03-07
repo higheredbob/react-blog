@@ -19,10 +19,8 @@ import CommuteIcon from "@material-ui/icons/Commute";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import StoreIcon from "@material-ui/icons/Store";
 import TodayIcon from "@material-ui/icons/Today";
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import { compose, graphql, } from "react-apollo";
-import { getAllPostsWithExtraQuery, getAllPostsQuery, } from "../graphql";
-import config from "../config";
+import PriorityHigh from '@material-ui/icons/PriorityHigh'
+
 
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -48,6 +46,67 @@ const styles = theme => ({
     }),
     width: theme.spacing.unit * 8,
     [theme.breakpoints.up("sm")]: {
+      width: theme.spacing.unit * 9
+    }
+  }
+});
+export const linklist  = {
+  dashboard: "/dashboard",
+  setting: "/setting",
+  feed: "/feed",
+  drafts: "/drafts",
+  create: "/create",
+  login: "/login",
+  detail: "/detail",
+  pagenotfound: "/notfound",
+  post: "/post",
+  logout: "/logout",
+  home: "/home",
+  landing: "/",
+  slug: "/:slug"
+}
+const Sidebar = props => {
+  const { open, classes } = props;
+  return (
+    <Drawer
+      variant="permanent"
+      classes={{
+        paper: classNames(
+          classes.drawerPaper,
+          !open && classes.drawerPaperClose
+        )
+      }}
+      open={open}
+    >
+      <List>
+      <Link to={linklist.landing}>
+          <ListItem button>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Posts" />
+          </ListItem>
+        </Link>
+        <Link to={linklist.slug}>
+          <ListItem button>
+            <ListItemIcon>
+              <FormatPaintIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Slug" />
+          </ListItem>
+        </Link>
+      </List>
+    </Drawer>
+  );
+};
+
+Sidebar.propTypes = {
+  linklist: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styles)(Sidebar);
+
       width: theme.spacing.unit * 9
     }
   }
